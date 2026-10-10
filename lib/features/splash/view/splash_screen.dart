@@ -21,6 +21,12 @@ class SplashScreen extends StatelessWidget {
                 AppPages.onBoardingScreen,
                 (route) => false,
               );
+            } else if (state is SplashLoginPageState) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppPages.loginScreen,
+                (route) => false,
+              );
             }
           },
           child: Center(
