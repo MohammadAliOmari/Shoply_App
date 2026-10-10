@@ -38,6 +38,10 @@ dependencies:
   smooth_page_indicator: ^3.0.0
   shared_preferences: ^2.5.6
   firebase_core: ^4.15.0
+  dartz: ^0.10.1
+  firebase_auth: ^6.7.0
+  cloud_firestore: ^6.10.0
+  pro_dialog: ^1.0.9
 
 dev_dependencies:
   flutter_test:

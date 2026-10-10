@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/images/app_images.dart';
 import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_button.dart';
@@ -92,7 +93,9 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, AppPages.signupScreen);
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(

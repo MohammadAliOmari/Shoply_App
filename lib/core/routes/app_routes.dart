@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
+import 'package:shoply_app/features/signup/view/singup_screen.dart';
 import 'package:shoply_app/features/splash/view/splash_screen.dart';
 
 class AppRoutes {
@@ -24,6 +25,12 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) {
             return const LoginScreen();
+          },
+        );
+      case AppPages.signupScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SingupScreen();
           },
         );
     }
