@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoply_app/core/model/signup/request_signup.dart';
+import 'package:shoply_app/core/services/supabase_service.dart';
 
 class SignupUsecase {
   Future<Either<String, bool>> signUp({
@@ -18,6 +19,7 @@ class SignupUsecase {
             email: requestSignup.email ?? '',
           );
       await _sendEmailVerification(userCredential: snapshot);
+      final profileImageUrl = await _uploadImage(image: profileImage);
       await _saveUserData(
         RequestSignup(
           email: requestSignup.email,
@@ -25,7 +27,7 @@ class SignupUsecase {
           userName: requestSignup.userName,
           address: requestSignup.address,
           uid: snapshot.user?.uid,
-          profileImage: '',
+          profileImage: profileImageUrl,
         ),
       );
       return Right(true);
@@ -64,6 +66,15 @@ class SignupUsecase {
       return Right(true);
     } on FirebaseAuthException catch (e) {
       return Left(e.message ?? '');
+    }
+  }
+
+  Future<String?> _uploadImage({required File? image}) async {
+    if (image != null) {
+      final imageUrl = await UploadImageService.uplaodImage(imageFile: image);
+      return imageUrl;
+    } else {
+      return null;
     }
   }
 }

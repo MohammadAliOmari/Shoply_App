@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shoply_app/core/model/signup/request_signup.dart';
 import 'package:shoply_app/features/signup/repo/signup_repo.dart';
 import 'package:shoply_app/features/signup/view_model/state.dart';
@@ -17,7 +18,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final File? profileImage = null;
+  File? profileImage;
   Future<void> signup() async {
     if (formKey.currentState?.validate() ?? false) {
       emit(SignUpLoadingState());
@@ -44,5 +45,30 @@ class SignUpCubit extends Cubit<SignUpState> {
         },
       );
     }
+  }
+
+  void pickImage() async {
+    final imageFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    profileImage = File(imageFile?.path ?? '');
+    emit(SignUpPickImageState());
+  }
+
+  void deleteImage() {
+    profileImage = null;
+    emit(SignUpPickImageState());
+  }
+
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    userNameController.dispose();
+    addressController.dispose();
+    fullNameController.dispose();
+
+    return super.close();
   }
 }

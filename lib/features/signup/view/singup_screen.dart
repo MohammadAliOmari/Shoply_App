@@ -10,9 +10,10 @@ import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
 import 'package:shoply_app/core/utils/widgets/custom_text_form_field.dart';
 import 'package:shoply_app/features/signup/view_model/cubit.dart';
 import 'package:shoply_app/features/signup/view_model/state.dart';
+part 'widgets/signup_header.dart';
 
-class SingupScreen extends StatelessWidget {
-  const SingupScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,46 +62,12 @@ class SingupScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Form(
-                        key: context.read<SignUpCubit>().formKey,
+                        key: cubit.formKey,
                         child: Column(
                           children: [
                             Column(
                               children: [
-                                Text(
-                                  'Join us and start shopping',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                                SizedBox(height: 20),
-                                Stack(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 70,
-                                      backgroundColor: Colors.grey.shade300,
-                                      child: Icon(
-                                        Icons.person_outline_rounded,
-                                        size: 90,
-                                        color: Colors.grey.shade700,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: AppColors.primaryColor,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          size: 20,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                _SignupHeader(),
                                 SizedBox(height: 20),
                                 CustomTextFormField(
                                   validator: (value) {

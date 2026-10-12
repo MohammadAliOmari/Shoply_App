@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
@@ -15,6 +17,8 @@ class SplashScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocListener<SplashCubit, SplashState>(
           listener: (context, state) {
+            debugPrint('Splash state received: $state');
+
             if (state is SplashOnBoardPageState) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -22,9 +26,16 @@ class SplashScreen extends StatelessWidget {
                 (route) => false,
               );
             } else if (state is SplashLoginPageState) {
+              log(state.toString());
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 AppPages.loginScreen,
+                (route) => false,
+              );
+            } else if (state is SplashHomePageState) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppPages.homeScreen,
                 (route) => false,
               );
             }

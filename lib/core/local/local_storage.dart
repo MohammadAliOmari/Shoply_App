@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorage {
-  static LocalStorage? _instance;
+class LocalStorages {
+  static LocalStorages? _instance;
   static SharedPreferences? _preferences;
 
-  LocalStorage.init() {
+  LocalStorages.init() {
     _instance = this;
   }
 
-  static LocalStorage get instance {
-    _instance ??= LocalStorage.init();
+  static LocalStorages get instance {
+    _instance ??= LocalStorages.init();
     return _instance!;
   }
 
@@ -21,7 +21,15 @@ class LocalStorage {
     await _preferences?.setBool('show_onboarding', isShowOnboarding);
   }
 
-  bool getShowOnboarding() {
+  bool? getShowOnboarding() {
     return _preferences?.getBool('show_onboarding') ?? false;
+  }
+
+  Future<void> setIsLogin({required bool isLogin}) async {
+    await _preferences?.setBool('isLogin', isLogin);
+  }
+
+  bool? getIsLogin() {
+    return _preferences?.getBool('isLogin') ?? false;
   }
 }

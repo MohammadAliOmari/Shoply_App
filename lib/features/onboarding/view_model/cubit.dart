@@ -49,7 +49,7 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
   }
 
   void setShowOnBoarding() async {
-    await LocalStorage.instance.setShowOnboarding(isShowOnboarding: true);
+    await LocalStorages.instance.setShowOnboarding(isShowOnboarding: true);
   }
 
   @override
