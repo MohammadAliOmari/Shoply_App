@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
+import 'package:shoply_app/features/layout/view/layout_screen.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
 import 'package:shoply_app/features/signup/view/singup_screen.dart';
@@ -38,6 +39,13 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) {
             return const HomeScreen();
+          },
+        );
+
+      case AppPages.layoutScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const LayoutScreen();
           },
         );
     }

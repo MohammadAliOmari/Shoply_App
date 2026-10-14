@@ -35,7 +35,7 @@ class SplashScreen extends StatelessWidget {
             } else if (state is SplashHomePageState) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                AppPages.homeScreen,
+                AppPages.layoutScreen,
                 (route) => false,
               );
             }

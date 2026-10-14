@@ -1,41 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:shoply_app/core/local/local_storge_user.dart';
-import 'package:shoply_app/core/routes/app_pages.dart';
-import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
-
-import '../../../core/local/local_storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoply_app/core/utils/images/app_images.dart';
+import 'package:shoply_app/core/utils/theme/app_colors.dart';
+import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
+import 'package:shoply_app/features/home/view_model/cubit.dart';
+import 'package:shoply_app/features/home/view_model/state.dart';
+part 'widget/home_categories.dart';
+part 'widget/home_trending_products.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        leading: GestureDetector(
-          onTap: () {
-            LocalStorages.instance.setIsLogin(isLogin: false);
-            LocalStorageUser.instance.clearUserData();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppPages.loginScreen,
-              (route) => false,
+    return BlocProvider(
+      create: (context) => HomeCubit()..getHome(),
+      child: Scaffold(
+        body: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            final cubit = context.read<HomeCubit>();
+            if (state is HomeLoadingState) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is HomeErrorState) {
+              return Center(child: Text(state.errorMessage));
+            }
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    height: 170,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Image.asset(AppImages.sales, fit: BoxFit.contain),
+                  ),
+                  SizedBox(height: 15),
+
+                  _HomeCategories(),
+                  SizedBox(height: 20),
+
+                  _HometrendingProducts(cubit: cubit),
+                ],
+              ),
             );
           },
-          child: Icon(Icons.logout),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(LocalStorageUser.instance.email),
-            Text(LocalStorageUser.instance.fullName),
-            Text(LocalStorageUser.instance.userName),
-            Text(LocalStorageUser.instance.address),
-            Text(LocalStorageUser.instance.uid),
-            Text(LocalStorageUser.instance.profileImage),
-          ],
         ),
       ),
     );
