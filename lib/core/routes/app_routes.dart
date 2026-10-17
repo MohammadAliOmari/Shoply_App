@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shoply_app/core/model/products/response_products.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
+import 'package:shoply_app/features/cart/view/cart_screen.dart';
 import 'package:shoply_app/features/categories/view/categories_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
 import 'package:shoply_app/features/layout/view/layout_screen.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
+import 'package:shoply_app/features/product_details/view/product_details_screen.dart';
 import 'package:shoply_app/features/products/view/products_screen.dart';
 import 'package:shoply_app/features/signup/view/singup_screen.dart';
 import 'package:shoply_app/features/splash/view/splash_screen.dart';
@@ -65,6 +68,22 @@ class AppRoutes {
             final titleText = arguments['titleText'] as String;
             final categoryId = arguments['categoryId'] as String;
             return ProductsScreen(titleText: titleText, categoryId: categoryId);
+          },
+        );
+
+      case AppPages.productDetailsScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            final arguments = settings.arguments as Map<String, dynamic>;
+            final responseProducts =
+                arguments['responseProducts'] as ResponseProducts;
+            return ProductDetailsScreen(responseProducts: responseProducts);
+          },
+        );
+      case AppPages.cartScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            return CartScreen();
           },
         );
     }
