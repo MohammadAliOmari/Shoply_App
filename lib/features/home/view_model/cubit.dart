@@ -12,6 +12,13 @@ class HomeCubit extends Cubit<HomeState> {
   final List<ResponseProducts> responseProducts = [];
   String? _errorMessage;
 
+  Future<void> refreshData() async {
+    ressponseCategories.clear();
+    responseProducts.clear();
+    _errorMessage = null;
+    await getHome();
+  }
+
   Future<void> getHome() async {
     emit(HomeLoadingState());
     await Future.wait([_getCategories(), _getTrendingProducts()]);

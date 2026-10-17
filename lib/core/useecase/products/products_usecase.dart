@@ -25,4 +25,27 @@ class ProductsUsecase {
       return left(e.message ?? '');
     }
   }
+
+  Future<Either<String, List<ResponseProducts>>> getProducts({
+    required String categoryId,
+  }) async {
+    try {
+      log('Category id : $categoryId');
+      final snapshot = await FirebaseFirestore.instance
+          .collection('categories')
+          .doc(categoryId)
+          .collection('products')
+          .get();
+
+      log('Category id : $categoryId');
+      final List<ResponseProducts> productsData = [];
+      for (var product in snapshot.docs) {
+        productsData.add(ResponseProducts.fromJson(product.data()));
+      }
+      log('Category product  : ${productsData.length}');
+      return Right(productsData);
+    } on FirebaseException catch (e) {
+      return left(e.message ?? '');
+    }
+  }
 }

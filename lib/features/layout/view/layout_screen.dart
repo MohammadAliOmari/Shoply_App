@@ -20,16 +20,19 @@ class LayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LayoutCubit(),
-      child: Scaffold(
-        drawer: _LayoutDrawer(),
-        appBar: _LayoutAppBar(),
-        bottomNavigationBar: _CustomBottmNavBar(),
-        body: BlocBuilder<LayoutCubit, LayoutState>(
-          builder: (context, state) {
-            final cubit = context.read<LayoutCubit>();
-            return cubit.pages[cubit.selectedIndex];
-          },
-        ),
+      child: BlocBuilder<LayoutCubit, LayoutState>(
+        builder: (context, state) {
+          final cubit = context.read<LayoutCubit>();
+          return Scaffold(
+            drawer: _LayoutDrawer(),
+            appBar: _LayoutAppBar(
+              index: cubit.selectedIndex,
+              title: cubit.appbarTitle[cubit.selectedIndex],
+            ),
+            bottomNavigationBar: _CustomBottmNavBar(),
+            body: cubit.pages[cubit.selectedIndex],
+          );
+        },
       ),
     );
   }

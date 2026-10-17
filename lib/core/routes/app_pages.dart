@@ -5,4 +5,6 @@ class AppPages {
   static const String signupScreen = '/SignupScreen';
   static const String homeScreen = '/HomeScreen';
   static const String layoutScreen = '/LayoutScreen';
+  static const String categoriesScreen = '/CategoriesScreen';
+  static const String productScreen = '/Products_screen';
 }

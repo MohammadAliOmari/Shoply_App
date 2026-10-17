@@ -52,7 +52,7 @@ class _HometrendingProducts extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey.shade200,
+                      color: Colors.grey.shade100,
                     ),
                     child: CustomCachedImageNetwork(
                       fit: BoxFit.contain,

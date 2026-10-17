@@ -41,14 +41,14 @@ class _HomeCategories extends StatelessWidget {
               final categoryData = cubit.ressponseCategories[index];
               return GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   AppPages.productsScreen,
-                  //   arguments: {
-                  //     'titleText': categoryData.name,
-                  //     'categoryId': categoryData.id,
-                  //   },
-                  // );
+                  Navigator.pushNamed(
+                    context,
+                    AppPages.productScreen,
+                    arguments: {
+                      'titleText': categoryData.name,
+                      'categoryId': categoryData.id,
+                    },
+                  );
                 },
                 child: Column(
                   children: [
@@ -56,7 +56,7 @@ class _HomeCategories extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.grey.shade200,
+                        color: Colors.grey.shade100,
                       ),
                       child: CustomCachedImageNetwork(
                         height: 90,
