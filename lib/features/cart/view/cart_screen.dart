@@ -8,6 +8,7 @@ import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 
 import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
+import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
 import 'package:shoply_app/features/cart/view_model/cubit.dart';
 import 'package:shoply_app/features/cart/view_model/state.dart';
 part 'widgets/cart_checkout.dart';
@@ -50,12 +51,37 @@ class CartScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
+            final cubit = context.read<CartCubit>();
             if (state is CartLoadingState) {
               return CustomLoadingData();
             } else if (state is CartErrorState) {
               return Center(child: Text(state.errorMessage));
             }
-            return Stack(children: [_CartCard(), _CartCheckout()]);
+            return CustomRefreshIndicator(
+              onRefresh: () {
+                return cubit.refreshCart();
+              },
+              child: cubit.responseCart.isNotEmpty
+                  ? Stack(children: [_CartCard(), _CartCheckout()])
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: .center,
+                        crossAxisAlignment: .center,
+                        children: [
+                          Icon(Icons.shopping_cart_outlined, size: 40),
+                          SizedBox(height: 40),
+                          Text(
+                            'Your Cart Is Empty !!',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            );
           },
         ),
       ),

@@ -10,6 +10,7 @@ import 'package:shoply_app/features/cart/repo/cart_repo.dart';
 // import 'package:shoply_app/core/model/order/products_order.dart';
 // import 'package:shoply_app/features/cart/repo/cart_repo.dart';
 import 'package:shoply_app/features/cart/view_model/state.dart';
+import 'package:shoply_app/features/layout/view_model/cubit.dart';
 // import 'package:shoply_app/features/main/view_model/cubit.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -25,13 +26,13 @@ class CartCubit extends Cubit<CartState> {
   Future<void> getCart() async {
     emit(CartLoadingState());
     final result = await _cartRepo.getCart();
-    log('cart item : ${responseCart.length}');
     result.fold(
       (errorMessage) {
         emit(CartErrorState(errorMessage: errorMessage));
       },
       (responseCart) {
         this.responseCart.addAll(responseCart);
+        log('cart item : ${responseCart.length}');
         emit(CartSuccessState());
       },
     );
@@ -41,7 +42,7 @@ class CartCubit extends Cubit<CartState> {
     required String productId,
     required BuildContext context,
   }) async {
-    // context.read<MainCubit>().decrementCartCount();
+    context.read<LayoutCubit>().decrementCartCount();
     responseCart.removeWhere((product) => product.id == productId);
     _cartRepo.deletePorduct(productId: productId);
     emit(CartDeleteProductSuccessState());
@@ -102,7 +103,7 @@ class CartCubit extends Cubit<CartState> {
         emit(CartCheckoutErrorState(errorMessage: errorMessage));
       },
       (_) {
-        // context.read<MainCubit>().removeCartCount();
+        context.read<LayoutCubit>().removeCartCount();
         responseCart.clear();
         _cartRepo.deleteAllPorduct();
         emit(CartCheckoutSuccessState());

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/model/products/response_products.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/features/cart/view/cart_screen.dart';
 import 'package:shoply_app/features/categories/view/categories_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
 import 'package:shoply_app/features/layout/view/layout_screen.dart';
+import 'package:shoply_app/features/layout/view_model/cubit.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
 import 'package:shoply_app/features/product_details/view/product_details_screen.dart';
@@ -56,28 +58,39 @@ class AppRoutes {
 
       case AppPages.categoriesScreen:
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return const CategoriesScreen();
           },
         );
 
       case AppPages.productScreen:
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             final arguments = settings.arguments as Map<String, dynamic>;
             final titleText = arguments['titleText'] as String;
             final categoryId = arguments['categoryId'] as String;
-            return ProductsScreen(titleText: titleText, categoryId: categoryId);
+            final context = arguments['context'] as BuildContext;
+            return BlocProvider.value(
+              value: context.read<LayoutCubit>(),
+              child: ProductsScreen(
+                titleText: titleText,
+                categoryId: categoryId,
+              ),
+            );
           },
         );
 
       case AppPages.productDetailsScreen:
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             final arguments = settings.arguments as Map<String, dynamic>;
             final responseProducts =
                 arguments['responseProducts'] as ResponseProducts;
-            return ProductDetailsScreen(responseProducts: responseProducts);
+            final context = arguments['context'] as BuildContext;
+            return BlocProvider.value(
+              value: context.read<LayoutCubit>(),
+              child: ProductDetailsScreen(responseProducts: responseProducts),
+            );
           },
         );
       case AppPages.cartScreen:

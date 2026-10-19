@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/model/cart/cart.dart';
+import 'package:shoply_app/features/layout/view_model/cubit.dart';
 import 'package:shoply_app/features/product_details/repo/product_details_repo.dart';
 
 import 'package:shoply_app/features/product_details/view_model/state.dart';
@@ -40,7 +41,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         emit(ProductDetailsAddToCartErrorState(errorMessage: errorMessage));
       },
       (_) {
-        // context.read<L>().getCartCount();
+        context.read<LayoutCubit>().getCartCount();
         emit(ProductDetailsAddToCartSuccessState());
       },
     );

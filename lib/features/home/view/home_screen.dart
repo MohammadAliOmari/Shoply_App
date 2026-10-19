@@ -7,6 +7,7 @@ import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
 import 'package:shoply_app/features/home/view_model/cubit.dart';
 import 'package:shoply_app/features/home/view_model/state.dart';
+import 'package:shoply_app/features/layout/view_model/cubit.dart';
 part 'widget/home_categories.dart';
 part 'widget/home_trending_products.dart';
 

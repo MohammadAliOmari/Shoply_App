@@ -17,12 +17,17 @@ class _HomeCategories extends StatelessWidget {
                 'Categories',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
-                'View All',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w700,
+              GestureDetector(
+                onTap: () {
+                  context.read<LayoutCubit>().changeNavBarIndex(1);
+                },
+                child: Text(
+                  'View All',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -47,6 +52,7 @@ class _HomeCategories extends StatelessWidget {
                     arguments: {
                       'titleText': categoryData.name,
                       'categoryId': categoryData.id,
+                      'context': context,
                     },
                   );
                 },

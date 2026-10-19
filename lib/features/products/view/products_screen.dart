@@ -52,7 +52,10 @@ class ProductsScreen extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         AppPages.productDetailsScreen,
-                        arguments: {'responseProducts': productsData},
+                        arguments: {
+                          'responseProducts': productsData,
+                          'context': context,
+                        },
                       );
                     },
                     child: _ProductCard(productsData: productsData),

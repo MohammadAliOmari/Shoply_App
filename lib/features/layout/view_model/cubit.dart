@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/features/cart/view/cart_screen.dart';
 import 'package:shoply_app/features/categories/view/categories_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
+import 'package:shoply_app/features/layout/repo/layout_repo.dart';
 import 'package:shoply_app/features/layout/view_model/state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitState());
+  final _layoutRepo = LayoutRepo();
   int selectedIndex = 0;
+  int cartCount = 0;
 
   List<Widget> pages = [
     HomeScreen(),
@@ -19,5 +22,29 @@ class LayoutCubit extends Cubit<LayoutState> {
   void changeNavBarIndex(int index) {
     selectedIndex = index;
     emit(LayoutChangeNavBarIndexState());
+  }
+
+  Future<void> getCartCount() async {
+    final result = await _layoutRepo.getCartCount();
+    result.fold((_) {}, (cartCount) {
+      this.cartCount = cartCount;
+      emit(LayoutChangeCartCountState());
+    });
+  }
+
+  // Future<void> logout() async {
+  //   LocalStorages.instance.setIsLogin(isLogin: false);
+  //   LocalStorageUser.instance.clearUserData();
+  //   await _mainRepo.logout();
+  // }
+
+  void decrementCartCount() {
+    cartCount--;
+    emit(LayoutChangeCartCountState());
+  }
+
+  void removeCartCount() {
+    cartCount = 0;
+    emit(LayoutChangeCartCountState());
   }
 }

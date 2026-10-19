@@ -43,7 +43,16 @@ class _HometrendingProducts extends StatelessWidget {
           itemBuilder: (context, index) {
             final productsData = cubit.responseProducts[index];
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppPages.productDetailsScreen,
+                  arguments: {
+                    'responseProducts': productsData,
+                    'context': context,
+                  },
+                );
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -22,6 +22,7 @@ class _CategoriesListView extends StatelessWidget {
                 arguments: {
                   'titleText': categoriesData.name,
                   'categoryId': categoriesData.id,
+                  'context': context,
                 },
               );
             },

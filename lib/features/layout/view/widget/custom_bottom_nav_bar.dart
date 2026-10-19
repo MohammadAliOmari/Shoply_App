@@ -18,7 +18,7 @@ class _CustomBottmNavBar extends StatelessWidget {
                 cubit.changeNavBarIndex(index);
               },
               indicatorShape: CircleBorder(),
-              destinations: const [
+              destinations: [
                 NavigationDestination(
                   icon: Icon(Icons.home_outlined),
                   selectedIcon: Icon(Icons.home),
@@ -36,8 +36,42 @@ class _CustomBottmNavBar extends StatelessWidget {
                   label: 'Favorite',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.shopping_cart_outlined),
-                  selectedIcon: Icon(Icons.shopping_cart),
+                  icon: cubit.cartCount != 0
+                      ? Badge(
+                          padding: EdgeInsets.all(1),
+                          offset: Offset(6, -10),
+                          backgroundColor: AppColors.primaryColor,
+                          label: Center(
+                            child: Text(
+                              '${cubit.cartCount}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          child: Icon(Icons.shopping_cart_outlined),
+                        )
+                      : Icon(Icons.shopping_cart_outlined),
+                  selectedIcon: cubit.cartCount != 0
+                      ? Badge(
+                          padding: EdgeInsets.all(1),
+                          offset: Offset(6, -10),
+                          backgroundColor: AppColors.primaryColor,
+                          label: Center(
+                            child: Text(
+                              '${cubit.cartCount}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          child: Icon(Icons.shopping_cart),
+                        )
+                      : Icon(Icons.shopping_cart),
                   label: 'Cart',
                 ),
               ],
