@@ -13,17 +13,25 @@ class CustomDialog extends StatelessWidget {
     required BuildContext context,
     required String title,
     required String description,
-    required void Function() onPressed,
+    void Function()? onPressed,
     required DialogType type,
+    List<DialogButton>? buttons,
   }) {
     showProDialog(
       context,
       type: type,
+      theme: ProDialogTheme(),
       title: title,
       description: description,
-      buttons: [
-        DialogButton(text: 'Got it', onPressed: onPressed, isPrimary: true),
-      ],
+      buttons:
+          buttons ??
+          [
+            DialogButton(
+              text: 'Got it',
+              onPressed: onPressed ?? () {},
+              isPrimary: true,
+            ),
+          ],
     );
   }
 }

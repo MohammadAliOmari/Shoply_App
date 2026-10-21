@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoply_app/core/local/local_storage.dart';
+import 'package:shoply_app/core/local/local_storge_user.dart';
 import 'package:shoply_app/features/cart/view/cart_screen.dart';
 import 'package:shoply_app/features/categories/view/categories_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
@@ -32,11 +34,11 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  // Future<void> logout() async {
-  //   LocalStorages.instance.setIsLogin(isLogin: false);
-  //   LocalStorageUser.instance.clearUserData();
-  //   await _mainRepo.logout();
-  // }
+  Future<void> logout() async {
+    LocalStorages.instance.setIsLogin(isLogin: false);
+    LocalStorageUser.instance.clearUserData();
+    await _layoutRepo.logOut();
+  }
 
   void decrementCartCount() {
     cartCount--;
