@@ -23,9 +23,39 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductDetailsCubit(),
+      create: (context) =>
+          ProductDetailsCubit()
+            ..checkIfProductInFavourite(productId: responseProducts.id ?? ""),
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          actions: [
+            BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+              buildWhen: (previous, current) {
+                return current is ProductDetailsChangeFavouriteState ||
+                    current is ProductDetailsFavoriteLoadingState ||
+                    current is ProductDetailsFavoriteErrorState ||
+                    current is ProductDetailsFavoriteSuccessState;
+              },
+              builder: (context, state) {
+                final cubit = context.read<ProductDetailsCubit>();
+                return GestureDetector(
+                  onTap: () {
+                    cubit.changeIsFavourite(
+                      responseProducts: responseProducts,
+                      context: context,
+                    );
+                  },
+                  child: Icon(
+                    cubit.isFavourite ? Icons.favorite : Icons.favorite_outline,
+                    size: 28,
+                    color: cubit.isFavourite ? Colors.red : Colors.black,
+                  ),
+                );
+              },
+            ),
+            SizedBox(width: 10),
+          ],
+        ),
         body: BlocListener<ProductDetailsCubit, ProductDetailsState>(
           listenWhen: (previous, current) {
             return current is! ProductDetailsChangeQuantityState;

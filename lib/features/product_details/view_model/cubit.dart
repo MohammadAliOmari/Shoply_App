@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/model/cart/cart.dart';
+import 'package:shoply_app/core/model/products/request_products.dart';
+import 'package:shoply_app/core/model/products/response_products.dart';
 import 'package:shoply_app/features/layout/view_model/cubit.dart';
 import 'package:shoply_app/features/product_details/repo/product_details_repo.dart';
 
@@ -12,6 +14,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final pageController = PageController();
 
   int quantity = 1;
+  bool isFavourite = false;
 
   void incrementQuantity() {
     if (quantity < 10) {
@@ -45,6 +48,56 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         emit(ProductDetailsAddToCartSuccessState());
       },
     );
+  }
+
+  Future<void> checkIfProductInFavourite({required String productId}) async {
+    emit(ProductDetailsFavoriteLoadingState());
+    final result = await _productDetailsRepo.checkIfProductInFavourite(
+      productId: productId,
+    );
+
+    result.fold(
+      (errorMessage) {
+        emit(ProductDetailsFavoriteErrorState(errorMessage: errorMessage));
+      },
+      (isFavourite) {
+        this.isFavourite = isFavourite;
+        emit(ProductDetailsFavoriteSuccessState());
+      },
+    );
+  }
+
+  void changeIsFavourite({
+    required ResponseProducts responseProducts,
+    required BuildContext context,
+  }) {
+    isFavourite = !isFavourite;
+    if (isFavourite) {
+      context.read<LayoutCubit>().incrementFavCount();
+      _addToFavourite(responseProducts: responseProducts);
+    } else {
+      context.read<LayoutCubit>().decrementFavCount();
+      _removeToFavourite(productId: responseProducts.id ?? '');
+    }
+    emit(ProductDetailsChangeFavouriteState());
+  }
+
+  Future<void> _addToFavourite({
+    required ResponseProducts responseProducts,
+  }) async {
+    await _productDetailsRepo.addToFavourite(
+      requestProducts: RequestProducts(
+        id: responseProducts.id,
+        name: responseProducts.name,
+        description: responseProducts.description,
+        price: responseProducts.price,
+        images: responseProducts.images,
+      ),
+    );
+  }
+
+  Future<void> _removeToFavourite({required String productId}) async {
+    await _productDetailsRepo.removeToFavourite(productId: productId);
   }
 
   @override

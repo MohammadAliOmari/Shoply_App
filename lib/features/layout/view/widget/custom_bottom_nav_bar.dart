@@ -31,8 +31,42 @@ class _CustomBottmNavBar extends StatelessWidget {
                   label: 'Categories',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.favorite_border),
-                  selectedIcon: Icon(Icons.favorite),
+                  icon: cubit.favCount != 0
+                      ? Badge(
+                          padding: EdgeInsets.all(1),
+                          offset: Offset(6, -10),
+                          backgroundColor: AppColors.primaryColor,
+                          label: Center(
+                            child: Text(
+                              '${cubit.favCount}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          child: Icon(Icons.favorite_outline),
+                        )
+                      : Icon(Icons.favorite_outline),
+                  selectedIcon: cubit.favCount != 0
+                      ? Badge(
+                          padding: EdgeInsets.all(1),
+                          offset: Offset(6, -10),
+                          backgroundColor: AppColors.primaryColor,
+                          label: Center(
+                            child: Text(
+                              '${cubit.favCount}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          child: Icon(Icons.favorite),
+                        )
+                      : Icon(Icons.favorite),
                   label: 'Favorite',
                 ),
                 NavigationDestination(

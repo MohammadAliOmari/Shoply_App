@@ -4,6 +4,7 @@ import 'package:shoply_app/core/local/local_storage.dart';
 import 'package:shoply_app/core/local/local_storge_user.dart';
 import 'package:shoply_app/features/cart/view/cart_screen.dart';
 import 'package:shoply_app/features/categories/view/categories_screen.dart';
+import 'package:shoply_app/features/favorite/view/favorite_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
 import 'package:shoply_app/features/layout/repo/layout_repo.dart';
 import 'package:shoply_app/features/layout/view_model/state.dart';
@@ -13,11 +14,12 @@ class LayoutCubit extends Cubit<LayoutState> {
   final _layoutRepo = LayoutRepo();
   int selectedIndex = 0;
   int cartCount = 0;
+  int favCount = 0;
 
   List<Widget> pages = [
     HomeScreen(),
     CategoriesScreen(),
-    Text('Favorit'),
+    FavoriteScreen(),
     CartScreen(),
   ];
   List<String> appbarTitle = ['', 'Categories', 'Favorite', 'Cart'];
@@ -34,12 +36,6 @@ class LayoutCubit extends Cubit<LayoutState> {
     });
   }
 
-  Future<void> logout() async {
-    LocalStorages.instance.setIsLogin(isLogin: false);
-    LocalStorageUser.instance.clearUserData();
-    await _layoutRepo.logOut();
-  }
-
   void decrementCartCount() {
     cartCount--;
     emit(LayoutChangeCartCountState());
@@ -48,5 +44,29 @@ class LayoutCubit extends Cubit<LayoutState> {
   void removeCartCount() {
     cartCount = 0;
     emit(LayoutChangeCartCountState());
+  }
+
+  Future<void> getFavCount() async {
+    final result = await _layoutRepo.getFavCount();
+    result.fold((_) {}, (favCount) {
+      this.favCount = favCount;
+      emit(LayoutChangeFavCountState());
+    });
+  }
+
+  void incrementFavCount() {
+    favCount++;
+    emit(LayoutChangeFavCountState());
+  }
+
+  void decrementFavCount() {
+    favCount--;
+    emit(LayoutChangeFavCountState());
+  }
+
+  Future<void> logout() async {
+    LocalStorages.instance.setIsLogin(isLogin: false);
+    LocalStorageUser.instance.clearUserData();
+    await _layoutRepo.logOut();
   }
 }

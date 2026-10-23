@@ -13,3 +13,15 @@ class ProductDetailsAddToCartErrorState extends ProductDetailsState {
 }
 
 class ProductDetailsAddToCartSuccessState extends ProductDetailsState {}
+
+class ProductDetailsChangeFavouriteState extends ProductDetailsState {}
+
+class ProductDetailsFavoriteLoadingState extends ProductDetailsState {}
+
+class ProductDetailsFavoriteErrorState extends ProductDetailsState {
+  final String errorMessage;
+
+  ProductDetailsFavoriteErrorState({required this.errorMessage});
+}
+
+class ProductDetailsFavoriteSuccessState extends ProductDetailsState {}
