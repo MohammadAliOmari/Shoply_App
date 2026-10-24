@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:shoply_app/core/model/order/product_order.dart';
+import 'package:shoply_app/core/model/order/request_order.dart';
 
 class CheckoutUsecase {
   Future<Either<String, bool>> checkout({

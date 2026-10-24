@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shoply_app/core/model/cart/cart.dart';
-import 'package:shoply_app/core/model/order/product_order.dart';
+import 'package:shoply_app/core/model/order/request_order.dart';
 
 import 'package:shoply_app/core/useecase/cart/cart_usecase.dart';
 import 'package:shoply_app/core/useecase/checkout/checkout_usecase.dart';

@@ -5,8 +5,10 @@ import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
+import 'package:shoply_app/features/categories/view/widgets/shimmer_categories_item.dart';
 import 'package:shoply_app/features/categories/view_model/cubit.dart';
 import 'package:shoply_app/features/categories/view_model/state.dart';
+import 'package:shoply_app/features/home/view/widget/shimmer_categories.dart';
 part 'widgets/categories_list_view.dart';
 part 'widgets/categories_list_item.dart';
 
@@ -21,7 +23,16 @@ class CategoriesScreen extends StatelessWidget {
         body: BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
             if (state is CategoriesLoadingState) {
-              return CustomLoadingData();
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 8),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return CategoryItemShimmer();
+                  },
+                ),
+              );
             } else if (state is CategoriesErrorState) {
               return Center(child: Text(state.errorMassege));
             }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shoply_app/core/utils/theme/app_colors.dart';
+import 'package:shoply_app/core/utils/widgets/custom_shimmer_loading.dart';
 
 class CustomCachedImageNetwork extends StatelessWidget {
   const CustomCachedImageNetwork({
@@ -23,8 +24,15 @@ class CustomCachedImageNetwork extends StatelessWidget {
       width: width ?? 150,
       imageUrl: image,
       fit: fit ?? BoxFit.cover,
-      placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(color: AppColors.primaryColor),
+      placeholder: (context, url) => ShimmerLoading(
+        child: Container(
+          height: height ?? 120,
+          width: width ?? 150,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
       ),
       errorWidget: (context, url, error) =>
           errorWidget ??

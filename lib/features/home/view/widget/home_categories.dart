@@ -6,6 +6,7 @@ class _HomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
+
     return Column(
       children: [
         Padding(

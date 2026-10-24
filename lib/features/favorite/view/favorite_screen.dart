@@ -8,6 +8,7 @@ import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
+import 'package:shoply_app/features/favorite/view/widgets/shimmer_favorite_grid.dart';
 import 'package:shoply_app/features/favorite/view_model/cubit.dart';
 import 'package:shoply_app/features/favorite/view_model/state.dart';
 
@@ -52,7 +53,7 @@ class FavoriteScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = context.read<FavoriteCubit>();
             if (state is FavoriteLoadingState) {
-              return CustomLoadingData();
+              return FavoriteShimmerGrid();
             } else if (state is FavoriteErrorState) {
               return Center(child: Text(state.errorMessage));
             }

@@ -63,6 +63,7 @@ class _LayoutDrawer extends StatelessWidget {
               Divider(thickness: 0.1, color: Colors.grey),
               SizedBox(height: 20),
               CustomListTile(
+                onTap: () => Navigator.pushNamed(context, AppPages.orderScreen),
                 iconData: Icons.assignment_outlined,
                 title: 'My Orders',
               ),

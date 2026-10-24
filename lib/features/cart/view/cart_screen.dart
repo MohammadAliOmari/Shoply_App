@@ -9,6 +9,7 @@ import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
+import 'package:shoply_app/features/cart/view/widgets/shimmer_cart.dart';
 import 'package:shoply_app/features/cart/view_model/cubit.dart';
 import 'package:shoply_app/features/cart/view_model/state.dart';
 part 'widgets/cart_checkout.dart';
@@ -53,7 +54,7 @@ class CartScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = context.read<CartCubit>();
             if (state is CartLoadingState) {
-              return CustomLoadingData();
+              return CartShimmerList();
             } else if (state is CartErrorState) {
               return Center(child: Text(state.errorMessage));
             }

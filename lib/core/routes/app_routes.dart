@@ -9,6 +9,7 @@ import 'package:shoply_app/features/layout/view/layout_screen.dart';
 import 'package:shoply_app/features/layout/view_model/cubit.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
+import 'package:shoply_app/features/orders/view/order_screen.dart';
 import 'package:shoply_app/features/product_details/view/product_details_screen.dart';
 import 'package:shoply_app/features/products/view/products_screen.dart';
 import 'package:shoply_app/features/signup/view/singup_screen.dart';
@@ -97,6 +98,12 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) {
             return CartScreen();
+          },
+        );
+      case AppPages.orderScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            return OrderScreen();
           },
         );
     }
