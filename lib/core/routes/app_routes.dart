@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoply_app/core/model/order/response_order.dart';
 import 'package:shoply_app/core/model/products/response_products.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/features/cart/view/cart_screen.dart';
@@ -9,6 +10,7 @@ import 'package:shoply_app/features/layout/view/layout_screen.dart';
 import 'package:shoply_app/features/layout/view_model/cubit.dart';
 import 'package:shoply_app/features/login/view/login_screen.dart';
 import 'package:shoply_app/features/onboarding/view/on_boarding_screen.dart';
+import 'package:shoply_app/features/order_details/view/order_details_screen.dart';
 import 'package:shoply_app/features/orders/view/order_screen.dart';
 import 'package:shoply_app/features/product_details/view/product_details_screen.dart';
 import 'package:shoply_app/features/products/view/products_screen.dart';
@@ -104,6 +106,14 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) {
             return OrderScreen();
+          },
+        );
+      case AppPages.orderDetailsScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            final arguments = settings.arguments as Map<String, dynamic>;
+            final order = arguments['order'] as OrderResponse;
+            return OrderDetailsScreen(order: order);
           },
         );
     }

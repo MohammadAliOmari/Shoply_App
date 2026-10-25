@@ -10,4 +10,5 @@ class AppPages {
   static const String productDetailsScreen = '/ProductDetailsScreen';
   static const String cartScreen = '/CartScreen';
   static const String orderScreen = '/OrderScreen';
+  static const String orderDetailsScreen = '/OrderDetailsScreen';
 }

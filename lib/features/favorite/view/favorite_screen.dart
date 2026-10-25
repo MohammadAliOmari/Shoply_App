@@ -6,7 +6,6 @@ import 'package:shoply_app/core/utils/widgets/custom_button.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
-import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
 import 'package:shoply_app/features/favorite/view/widgets/shimmer_favorite_grid.dart';
 import 'package:shoply_app/features/favorite/view_model/cubit.dart';

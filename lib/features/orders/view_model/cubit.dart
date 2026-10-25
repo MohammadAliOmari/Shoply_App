@@ -6,7 +6,7 @@ import 'package:shoply_app/features/orders/view_model/state.dart';
 class OrderCubit extends Cubit<OrderState> {
   OrderCubit() : super(OrderInitState());
   final _orderRepo = OrderRepo();
-  final List<OrderResponse> ordersList = [];
+  List<OrderResponse> ordersList = [];
 
   Future<void> getOrders() async {
     emit(OrderLoadingState());
@@ -18,9 +18,14 @@ class OrderCubit extends Cubit<OrderState> {
         emit(OrderErrorState(errorMessage: failure));
       },
       (orderResponse) {
-        this.ordersList.addAll(orderResponse);
+        ordersList.addAll(orderResponse);
         emit(OrderSuccessState());
       },
     );
+  }
+
+  Future<void> refreshOrders() async {
+    ordersList.clear();
+    await getOrders();
   }
 }

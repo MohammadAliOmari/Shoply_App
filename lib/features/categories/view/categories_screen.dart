@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/model/categories/response_categories.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
-import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
 import 'package:shoply_app/features/categories/view/widgets/shimmer_categories_item.dart';
 import 'package:shoply_app/features/categories/view_model/cubit.dart';
 import 'package:shoply_app/features/categories/view_model/state.dart';
-import 'package:shoply_app/features/home/view/widget/shimmer_categories.dart';
 part 'widgets/categories_list_view.dart';
 part 'widgets/categories_list_item.dart';
 

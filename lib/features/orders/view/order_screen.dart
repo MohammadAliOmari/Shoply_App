@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
-import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/features/orders/view/widgets/order_list.dart';
 import 'package:shoply_app/features/orders/view_model/cubit.dart';
 import 'package:shoply_app/features/orders/view_model/state.dart';
@@ -68,22 +67,39 @@ class OrderScreen extends StatelessWidget {
                     child: TabBarView(
                       physics: BouncingScrollPhysics(),
                       children: [
-                        OrderList(cubit: cubit),
+                        OrderList(orderList: cubit.ordersList, status: 'all'),
                         cubit.ordersList
                                 .where((order) => order.status == 'pending')
                                 .isEmpty
                             ? Center(child: Text('No Orders Yet'))
-                            : OrderList(cubit: cubit),
+                            : OrderList(
+                                orderList: cubit.ordersList
+                                    .where((order) => order.status == 'pending')
+                                    .toList(),
+                                status: 'pending',
+                              ),
                         cubit.ordersList
                                 .where((order) => order.status == 'shipped')
                                 .isEmpty
                             ? Center(child: Text('No Orders Yet'))
-                            : OrderList(cubit: cubit),
+                            : OrderList(
+                                orderList: cubit.ordersList
+                                    .where((order) => order.status == 'shipped')
+                                    .toList(),
+                                status: 'shipped',
+                              ),
                         cubit.ordersList
                                 .where((order) => order.status == 'delivered')
                                 .isEmpty
                             ? Center(child: Text('No Orders Yet'))
-                            : OrderList(cubit: cubit),
+                            : OrderList(
+                                orderList: cubit.ordersList
+                                    .where(
+                                      (order) => order.status == 'delivered',
+                                    )
+                                    .toList(),
+                                status: 'delivered',
+                              ),
                       ],
                     ),
                   ),

@@ -8,12 +8,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actionsPadding,
     this.leading,
     this.title,
+    this.isCenterTitle,
   });
   final String? titleText;
   final List<Widget>? actions;
   final Widget? leading;
   final EdgeInsetsGeometry? actionsPadding;
   final Widget? title;
+  final bool? isCenterTitle;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -32,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontStyle: FontStyle.normal,
             ),
           ),
-      centerTitle: true,
+      centerTitle: isCenterTitle ?? true,
     );
   }
 
