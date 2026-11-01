@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_dialog/pro_dialog.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
-import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
 import 'package:shoply_app/core/utils/widgets/custom_button.dart';
 import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
@@ -17,6 +16,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => SignUpCubit(),
       child: Scaffold(
@@ -167,7 +167,7 @@ class SignupScreen extends StatelessWidget {
                                   },
                                   style: TextStyle(
                                     fontSize: 25,
-                                    color: AppColors.onPrimary,
+                                    color: theme.colorScheme.surface,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -194,7 +194,7 @@ class SignupScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w800,
-                                      color: AppColors.primaryColor,
+                                      color: theme.primaryColor,
                                     ),
                                   ),
                                 ),

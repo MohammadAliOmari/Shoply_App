@@ -69,11 +69,20 @@ class _LayoutDrawer extends StatelessWidget {
               ),
               SizedBox(height: 20),
               CustomListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, AppPages.settingsScreen);
+                },
                 iconData: Icons.settings_outlined,
                 title: 'Settings',
               ),
               SizedBox(height: 20),
-              CustomListTile(iconData: Icons.info_outline, title: 'About'),
+              CustomListTile(
+                iconData: Icons.info_outline,
+                title: 'About',
+                onTap: () {
+                  Navigator.pushNamed(context, AppPages.aboutScreen);
+                },
+              ),
               Spacer(),
               CustomListTile(
                 onTap: () => CustomDialog.showCustomDialog(

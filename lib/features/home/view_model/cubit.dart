@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/model/categories/response_categories.dart';
 import 'package:shoply_app/core/model/products/response_products.dart';
+import 'package:shoply_app/core/model/sales/response_sales.dart';
 import 'package:shoply_app/features/home/repo/home_repo.dart';
 import 'package:shoply_app/features/home/view_model/state.dart';
 
@@ -10,18 +11,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   final List<ResponseCategories> ressponseCategories = [];
   final List<ResponseProducts> responseProducts = [];
+  final List<ResponseSales> responseSales = [];
   String? _errorMessage;
 
   Future<void> refreshData() async {
     ressponseCategories.clear();
     responseProducts.clear();
+    responseSales.clear();
     _errorMessage = null;
     await getHome();
   }
 
   Future<void> getHome() async {
     emit(HomeLoadingState());
-    await Future.wait([_getCategories(), _getTrendingProducts()]);
+    await Future.wait([_getCategories(), _getTrendingProducts(), _getSales()]);
     if (_errorMessage != null) {
       emit(HomeErrorState(errorMessage: _errorMessage ?? ''));
     } else {
@@ -52,6 +55,18 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (responseProducts) {
         this.responseProducts.addAll(responseProducts);
+      },
+    );
+  }
+
+  Future<void> _getSales() async {
+    final result = await _homeRepo.getSales();
+    result.fold(
+      (errorMessage) {
+        _errorMessage = errorMessage;
+      },
+      (responseSales) {
+        this.responseSales.addAll(responseSales);
       },
     );
   }

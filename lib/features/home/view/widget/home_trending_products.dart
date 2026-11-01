@@ -7,6 +7,7 @@ class _HometrendingProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         Padding(
@@ -18,12 +19,21 @@ class _HometrendingProducts extends StatelessWidget {
                 'Trending Products',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
-                'View All',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w700,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppPages.trendingProductScreen,
+                    arguments: {'context': context},
+                  );
+                },
+                child: Text(
+                  'View All',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: theme.primaryColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -61,7 +71,7 @@ class _HometrendingProducts extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey.shade100,
+                      color: theme.cardColor,
                     ),
                     child: CustomCachedImageNetwork(
                       fit: BoxFit.contain,
@@ -76,7 +86,6 @@ class _HometrendingProducts extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -90,7 +99,6 @@ class _HometrendingProducts extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
                       ),
                     ),
                   ),

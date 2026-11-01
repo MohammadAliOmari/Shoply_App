@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
 import 'package:shoply_app/features/orders/view/widgets/order_list.dart';
+import 'package:shoply_app/features/orders/view/widgets/shimmer_order_loading.dart';
 import 'package:shoply_app/features/orders/view_model/cubit.dart';
 import 'package:shoply_app/features/orders/view_model/state.dart';
 
@@ -11,6 +11,7 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => OrderCubit()..getOrders(),
       child: DefaultTabController(
@@ -22,7 +23,7 @@ class OrderScreen extends StatelessWidget {
             builder: (context, state) {
               final cubit = context.read<OrderCubit>();
               if (state is OrderLoadingState) {
-                return const Center(child: CircularProgressIndicator());
+                return const OrdersShimmerList();
               }
               if (state is OrderErrorState) {
                 return Center(child: Text(state.errorMessage));
@@ -32,7 +33,7 @@ class OrderScreen extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
+                      color: theme.cardColor,
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TabBar(
@@ -41,24 +42,24 @@ class OrderScreen extends StatelessWidget {
                       indicatorPadding: const EdgeInsets.all(3),
                       labelPadding: EdgeInsets.zero,
                       overlayColor: WidgetStateProperty.all(Colors.transparent),
-                      unselectedLabelStyle: const TextStyle(
+                      unselectedLabelStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
-                      labelStyle: const TextStyle(
+                      labelStyle: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                       indicator: BoxDecoration(
-                        color: AppColors.primaryColor,
+                        color: theme.primaryColor,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      unselectedLabelColor: Colors.black,
-                      labelColor: Colors.white,
+                      labelColor: theme.colorScheme.surface,
+                      unselectedLabelColor: theme.colorScheme.onSurface,
                       tabs: const [
                         Tab(text: 'All'),
                         Tab(text: 'Pending'),
-                        Tab(text: 'Shiped'),
+                        Tab(text: 'Shipped'),
                         Tab(text: 'Delivered'),
                       ],
                     ),
@@ -67,7 +68,12 @@ class OrderScreen extends StatelessWidget {
                     child: TabBarView(
                       physics: BouncingScrollPhysics(),
                       children: [
-                        OrderList(orderList: cubit.ordersList, status: 'all'),
+                        cubit.ordersList.isEmpty
+                            ? Center(child: Text('No Orders Yet'))
+                            : OrderList(
+                                orderList: cubit.ordersList,
+                                status: 'all',
+                              ),
                         cubit.ordersList
                                 .where((order) => order.status == 'pending')
                                 .isEmpty

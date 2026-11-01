@@ -8,6 +8,7 @@ import 'package:shoply_app/features/favorite/view/favorite_screen.dart';
 import 'package:shoply_app/features/home/view/home_screen.dart';
 import 'package:shoply_app/features/layout/repo/layout_repo.dart';
 import 'package:shoply_app/features/layout/view_model/state.dart';
+import 'package:shoply_app/features/profile/view/profile_screen.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitState());
@@ -21,8 +22,9 @@ class LayoutCubit extends Cubit<LayoutState> {
     CategoriesScreen(),
     FavoriteScreen(),
     CartScreen(),
+    ProfileScreen(),
   ];
-  List<String> appbarTitle = ['', 'Categories', 'Favorite', 'Cart'];
+  List<String> appbarTitle = ['', 'Categories', 'Favorite', 'Cart', 'Profile'];
   void changeNavBarIndex(int index) {
     selectedIndex = index;
     emit(LayoutChangeNavBarIndexState());

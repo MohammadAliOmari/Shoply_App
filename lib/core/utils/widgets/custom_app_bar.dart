@@ -22,7 +22,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       actionsPadding: actionsPadding,
       actions: actions,
-      leading: leading,
+      leading:
+          leading ??
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios),
+          ),
       title:
           title ??
           Text(
@@ -30,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+
               fontStyle: FontStyle.normal,
             ),
           ),

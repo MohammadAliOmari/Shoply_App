@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorages {
@@ -31,5 +32,13 @@ class LocalStorages {
 
   bool? getIsLogin() {
     return _preferences?.getBool('isLogin') ?? false;
+  }
+
+  Future<void> setThemeMode({required ThemeMode themeMode}) async {
+    await _preferences?.setString('themeMode', themeMode.name);
+  }
+
+  String? getThemeMode() {
+    return _preferences?.getString('themeMode');
   }
 }

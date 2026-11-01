@@ -6,6 +6,7 @@ class _CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CartCubit>();
+    final theme = Theme.of(context);
     return ListView.separated(
       separatorBuilder: (context, index) {
         return SizedBox(height: 5);
@@ -38,7 +39,7 @@ class _CartCard extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: theme.cardColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: CustomCachedImageNetwork(
@@ -77,10 +78,10 @@ class _CartCard extends StatelessWidget {
                         width: 155,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.grey.shade300,
+                            color: theme.dividerColor,
                             width: 1,
                           ),
-                          color: Colors.grey.shade200,
+                          color: theme.cardColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Row(
@@ -94,7 +95,7 @@ class _CartCard extends StatelessWidget {
                                 child: Icon(Icons.remove, size: 25),
                               ),
                             ),
-                            VerticalDivider(color: Colors.grey.shade300),
+                            VerticalDivider(color: theme.dividerColor),
                             Expanded(
                               child: Center(
                                 child: Text(
@@ -102,12 +103,11 @@ class _CartCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
                                   ),
                                 ),
                               ),
                             ),
-                            VerticalDivider(color: Colors.grey.shade300),
+                            VerticalDivider(color: theme.dividerColor),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {

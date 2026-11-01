@@ -62,7 +62,21 @@ class FavoriteScreen extends StatelessWidget {
               },
               child: cubit.favoriteList.isEmpty
                   ? Center(
-                      child: Text('Your favourite is empty. Start shopping!'),
+                      child: Column(
+                        mainAxisAlignment: .center,
+                        children: [
+                          Icon(Icons.favorite_rounded, size: 50),
+                          SizedBox(height: 40),
+                          Text(
+                            'Your favorite is empty!',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     )
                   : _FavouriteGrid(),
             );

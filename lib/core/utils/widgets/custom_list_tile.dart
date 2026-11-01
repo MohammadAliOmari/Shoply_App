@@ -16,13 +16,13 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: Icon(iconData, size: 30, color: color ?? Colors.black),
+      leading: Icon(iconData, size: 30, color: color),
       title: Text(
         title,
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: color ?? Colors.black,
+          color: color,
         ),
       ),
     );

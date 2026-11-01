@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_dialog/pro_dialog.dart';
 import 'package:shoply_app/core/model/cart/cart.dart';
 import 'package:shoply_app/core/model/products/response_products.dart';
-import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
 import 'package:shoply_app/core/utils/widgets/custom_button.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
@@ -48,7 +47,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   child: Icon(
                     cubit.isFavourite ? Icons.favorite : Icons.favorite_outline,
                     size: 28,
-                    color: cubit.isFavourite ? Colors.red : Colors.black,
+                    color: cubit.isFavourite ? Colors.red : null,
                   ),
                 );
               },

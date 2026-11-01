@@ -4,8 +4,8 @@ import 'package:shoply_app/core/model/products/response_products.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
-import 'package:shoply_app/core/utils/widgets/custom_loading_data.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
+import 'package:shoply_app/features/favorite/view/widgets/shimmer_favorite_grid.dart';
 import 'package:shoply_app/features/products/view_model/cubit.dart';
 import 'package:shoply_app/features/products/view_model/state.dart';
 part 'widgets/product_card.dart';
@@ -27,6 +27,11 @@ class ProductsScreen extends StatelessWidget {
         body: BlocBuilder<ProductsCubit, ProductsState>(
           builder: (context, state) {
             final cubit = context.read<ProductsCubit>();
+            if (state is ProductsLoadingState) {
+              return FavoriteShimmerGrid();
+            } else if (state is ProductsErrorState) {
+              return Center(child: Text(state.errorMessage));
+            }
             return CustomRefreshIndicator(
               onRefresh: () {
                 return cubit.refreshProducts(categoryId: categoryId);
@@ -40,11 +45,6 @@ class ProductsScreen extends StatelessWidget {
                 ),
                 itemCount: cubit.responseProducts.length,
                 itemBuilder: (context, index) {
-                  if (state is ProductsLoadingState) {
-                    return CustomLoadingData();
-                  } else if (state is ProductsErrorState) {
-                    return Center(child: Text(state.errorMessage));
-                  }
                   final ResponseProducts productsData =
                       cubit.responseProducts[index];
                   return GestureDetector(

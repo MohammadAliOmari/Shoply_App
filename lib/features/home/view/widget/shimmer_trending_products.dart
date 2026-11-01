@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shoply_app/core/utils/widgets/custom_shimmer_loading.dart';
 
 class TrendingProductsShimmer extends StatelessWidget {
   const TrendingProductsShimmer({super.key});
@@ -38,9 +38,7 @@ class TrendingProductsShimmer extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Product image
-                Shimmer.fromColors(
-                  baseColor: Colors.grey.shade200,
-                  highlightColor: Colors.grey.shade100,
+                ShimmerLoading(
                   child: Container(
                     width: double.infinity,
                     height: 120,
@@ -85,9 +83,7 @@ class TrendingProductsShimmer extends StatelessWidget {
     required double height,
     double radius = 4,
   }) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+    return ShimmerLoading(
       child: Container(
         width: width,
         height: height,

@@ -7,6 +7,7 @@ class _ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -14,11 +15,7 @@ class _ProductDetailsBody extends StatelessWidget {
         children: [
           Text(
             responseProducts.name ?? '',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 5),
           Text(
@@ -26,7 +23,7 @@ class _ProductDetailsBody extends StatelessWidget {
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor,
+              color: theme.primaryColor,
             ),
           ),
           SizedBox(height: 20),

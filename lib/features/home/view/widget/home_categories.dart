@@ -6,7 +6,7 @@ class _HomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
-
+    final theme = Theme.of(context);
     return Column(
       children: [
         Padding(
@@ -26,7 +26,7 @@ class _HomeCategories extends StatelessWidget {
                   'View All',
                   style: TextStyle(
                     fontSize: 15,
-                    color: AppColors.primaryColor,
+                    color: theme.primaryColor,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -63,7 +63,7 @@ class _HomeCategories extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.grey.shade100,
+                        color: theme.cardColor,
                       ),
                       child: CustomCachedImageNetwork(
                         height: 90,
@@ -78,7 +78,6 @@ class _HomeCategories extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black,
                       ),
                     ),
                   ],

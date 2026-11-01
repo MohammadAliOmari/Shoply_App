@@ -28,11 +28,7 @@ class _OnBoardingHeader extends StatelessWidget {
                   const SizedBox(height: 24),
                   Text(
                     cubit.onBoardTitle[index],
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 12),

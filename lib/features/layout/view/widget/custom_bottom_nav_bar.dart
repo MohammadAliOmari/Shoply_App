@@ -5,19 +5,22 @@ class _CustomBottmNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<LayoutCubit, LayoutState>(
       builder: (context, state) {
         final cubit = context.read<LayoutCubit>();
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Divider(height: 1, thickness: 0.4, color: Colors.grey),
+            Divider(height: 1, thickness: 1, color: theme.dividerColor),
             NavigationBar(
+              backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
               selectedIndex: cubit.selectedIndex,
               onDestinationSelected: (index) {
                 cubit.changeNavBarIndex(index);
               },
               indicatorShape: CircleBorder(),
+              indicatorColor: AppColors.primaryColor,
               destinations: [
                 NavigationDestination(
                   icon: Icon(Icons.home_outlined),
@@ -35,14 +38,13 @@ class _CustomBottmNavBar extends StatelessWidget {
                       ? Badge(
                           padding: EdgeInsets.all(1),
                           offset: Offset(6, -10),
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor: theme.primaryColor,
                           label: Center(
                             child: Text(
                               '${cubit.favCount}',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -53,14 +55,13 @@ class _CustomBottmNavBar extends StatelessWidget {
                       ? Badge(
                           padding: EdgeInsets.all(1),
                           offset: Offset(6, -10),
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor: theme.primaryColor,
                           label: Center(
                             child: Text(
                               '${cubit.favCount}',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -74,14 +75,13 @@ class _CustomBottmNavBar extends StatelessWidget {
                       ? Badge(
                           padding: EdgeInsets.all(1),
                           offset: Offset(6, -10),
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor: theme.primaryColor,
                           label: Center(
                             child: Text(
                               '${cubit.cartCount}',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -92,14 +92,13 @@ class _CustomBottmNavBar extends StatelessWidget {
                       ? Badge(
                           padding: EdgeInsets.all(1),
                           offset: Offset(6, -10),
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor: theme.primaryColor,
                           label: Center(
                             child: Text(
                               '${cubit.cartCount}',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -107,6 +106,11 @@ class _CustomBottmNavBar extends StatelessWidget {
                         )
                       : Icon(Icons.shopping_cart),
                   label: 'Cart',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.person_2_outlined),
+                  selectedIcon: Icon(Icons.person),
+                  label: 'Profile',
                 ),
               ],
             ),

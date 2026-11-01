@@ -20,9 +20,21 @@ class CustomDialog extends StatelessWidget {
     showProDialog(
       context,
       type: type,
-      theme: ProDialogTheme(),
+      theme: ProDialogTheme(
+        backgroundColor: Theme.of(context).cardColor,
+        titleStyle: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Theme.of(context).textTheme.bodyLarge?.color,
+        ),
+        descriptionStyle: TextStyle(
+          fontSize: 16,
+          color: Theme.of(context).textTheme.bodyMedium?.color,
+        ),
+      ),
       title: title,
       description: description,
+
       buttons:
           buttons ??
           [

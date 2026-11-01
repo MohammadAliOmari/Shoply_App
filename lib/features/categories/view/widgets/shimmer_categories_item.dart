@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shoply_app/core/utils/widgets/custom_shimmer_loading.dart';
 
 class CategoryItemShimmer extends StatelessWidget {
   const CategoryItemShimmer({super.key});
@@ -11,15 +11,13 @@ class CategoryItemShimmer extends StatelessWidget {
         const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             children: [
               // Image placeholder
-              Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
+              ShimmerLoading(
                 child: Container(
                   height: 120,
                   width: 100,
@@ -33,9 +31,7 @@ class CategoryItemShimmer extends StatelessWidget {
               const SizedBox(width: 20),
 
               // Category name placeholder
-              Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
+              ShimmerLoading(
                 child: Container(
                   height: 20,
                   width: 60,

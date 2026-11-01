@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shoply_app/core/utils/widgets/custom_shimmer_loading.dart';
 
 class FavoriteShimmerGrid extends StatelessWidget {
   const FavoriteShimmerGrid({super.key, this.itemCount = 6});
@@ -8,9 +8,7 @@ class FavoriteShimmerGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+    return ShimmerLoading(
       child: GridView.builder(
         itemCount: itemCount,
         physics:
@@ -31,12 +29,17 @@ class FavoriteShimmerGrid extends StatelessWidget {
 class _FavoriteShimmerCard extends StatelessWidget {
   const _FavoriteShimmerCard();
 
-  Widget _box({double? width, required double height, double radius = 8}) {
+  Widget _box({
+    double? width,
+    required double height,
+    double radius = 8,
+    required ThemeData theme,
+  }) {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.white, // Shimmer paints over this with its gradient
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(radius),
       ),
     );
@@ -44,37 +47,36 @@ class _FavoriteShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image area
-          Expanded(
-            child: Container(width: double.infinity, color: Colors.white),
-          ),
+          Container(width: double.infinity, color: Colors.grey, height: 150),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _box(width: 110, height: 16), // name
+                _box(width: 110, height: 16, theme: theme), // name
                 const SizedBox(height: 6),
-                _box(width: 70, height: 19), // price
+                _box(width: 70, height: 19, theme: theme), // price
               ],
             ),
           ),
-          const SizedBox(height: 18),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: _box(
-              width: double.infinity,
-              height: 52,
-              radius: 12,
-            ), // button
-          ),
+          // const SizedBox(height: 18),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 16),
+          //   child: _box(
+          //     theme: theme,
+          //     width: double.infinity,
+          //     height: 52,
+          //     radius: 12,
+          //   ), // button
+          // ),
           const SizedBox(height: 12),
         ],
       ),

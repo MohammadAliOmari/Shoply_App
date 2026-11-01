@@ -51,8 +51,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     final imageFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
-    profileImage = File(imageFile?.path ?? '');
-    emit(SignUpPickImageState());
+    if (imageFile != null) {
+      profileImage = File(imageFile.path);
+      emit(SignUpPickImageState());
+    }
   }
 
   void deleteImage() {

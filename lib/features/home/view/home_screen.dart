@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
-import 'package:shoply_app/core/utils/images/app_images.dart';
-import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/core/utils/widgets/custom_refresh_indicator.dart';
+import 'package:shoply_app/core/utils/widgets/custom_shimmer_loading.dart';
+import 'package:shoply_app/features/home/view/widget/image_carousel.dart';
 import 'package:shoply_app/features/home/view/widget/shimmer_categories.dart';
 import 'package:shoply_app/features/home/view/widget/shimmer_trending_products.dart';
 import 'package:shoply_app/features/home/view_model/cubit.dart';
@@ -28,15 +28,17 @@ class HomeScreen extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      clipBehavior: Clip.antiAlias,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      height: 170,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
+                    ShimmerLoading(
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        height: 170,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      child: Image.asset(AppImages.sales, fit: BoxFit.contain),
                     ),
                     SizedBox(height: 15),
 
@@ -57,15 +59,15 @@ class HomeScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      clipBehavior: Clip.antiAlias,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      height: 170,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ImageCarousel(
+                        imageUrls: cubit.responseSales
+                            .map((e) => e.image!)
+                            .toList(),
+
+                        onTap: (i) => debugPrint('Tapped image $i'),
                       ),
-                      child: Image.asset(AppImages.sales, fit: BoxFit.contain),
                     ),
                     SizedBox(height: 15),
 

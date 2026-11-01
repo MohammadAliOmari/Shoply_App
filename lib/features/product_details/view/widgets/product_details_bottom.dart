@@ -8,6 +8,7 @@ class _ProductDetailsBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ProductDetailsCubit>();
+    final theme = Theme.of(context);
     return Column(
       children: [
         Align(
@@ -19,7 +20,7 @@ class _ProductDetailsBottom extends StatelessWidget {
             width: 190,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300, width: 1),
-              color: Colors.grey.shade200,
+              color: theme.cardColor,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -48,7 +49,6 @@ class _ProductDetailsBottom extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 19,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
                               ),
                             );
                           },

@@ -8,12 +8,14 @@ class CustomTextFormField extends StatefulWidget {
     required this.hinText,
     this.prefixIcon,
     this.obscureText,
+    this.maxLines,
   });
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String hinText;
   final Widget? prefixIcon;
   final bool? obscureText;
+  final int? maxLines;
 
   @override
   State<CustomTextFormField> createState() => _MainTextFieldState();
@@ -35,14 +37,12 @@ class _MainTextFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return TextFormField(
+      maxLines: widget.maxLines ?? 1,
       obscureText: isHide ?? false,
       controller: widget.controller,
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
+      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
       textInputAction: TextInputAction.next,
       validator: widget.validator,
       cursorColor: Colors.grey,
@@ -71,7 +71,7 @@ class _MainTextFieldState extends State<CustomTextFormField> {
             : null,
         contentPadding: EdgeInsets.symmetric(vertical: 17, horizontal: 10),
         prefixIcon: widget.prefixIcon,
-        fillColor: Colors.grey.shade300.withValues(alpha: 0.5),
+        fillColor: theme.cardColor,
         filled: true,
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

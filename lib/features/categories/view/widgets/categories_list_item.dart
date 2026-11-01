@@ -7,12 +7,13 @@ class _CategoriesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
@@ -29,7 +30,7 @@ class _CategoriesListItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: Colors.black,
+                  // color: Colors.black,
                 ),
               ),
               Spacer(),

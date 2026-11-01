@@ -15,6 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -27,26 +28,18 @@ class OrderDetailsScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Order details',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5),
                   Text(
                     '#${order.id?.substring(0, 5)}',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
               leading: IconButton(
                 onPressed: () => Navigator.maybePop(context),
-                icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                icon: const Icon(Icons.arrow_back_ios),
               ),
             ),
             Expanded(
@@ -54,15 +47,15 @@ class OrderDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
                 child: Column(
                   children: [
-                    _buildOrderHeader(),
+                    _buildOrderHeader(theme),
                     const SizedBox(height: 16),
-                    _buildOrderTimeline(),
+                    _buildOrderTimeline(theme),
                     const SizedBox(height: 16),
-                    _buildShippingInformation(),
+                    _buildShippingInformation(theme),
                     const SizedBox(height: 16),
-                    _buildOrderItems(),
+                    _buildOrderItems(theme),
                     const SizedBox(height: 16),
-                    _buildOrderSummary(),
+                    _buildOrderSummary(theme),
                     const SizedBox(height: 20),
                     // _buildTrackOrderButton(),
                     const SizedBox(height: 12),
@@ -77,59 +70,10 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  // App bar
-  // Widget _buildAppBar(BuildContext context) {
-  //   return Container(
-  //     width: double.infinity,
-  //     padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-  //     decoration: const BoxDecoration(
-  //       gradient: LinearGradient(
-  //         colors: [Color(0xFF0B654C), Color(0xFF07523D)],
-  //         begin: Alignment.topLeft,
-  //         end: Alignment.bottomRight,
-  //       ),
-  //       borderRadius: BorderRadius.vertical(bottom: Radius.circular(4)),
-  //     ),
-  //     child: Row(
-  //       children: [
-  //         IconButton(
-  //           onPressed: () => Navigator.maybePop(context),
-  //           icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
-  //         ),
-  //         const SizedBox(width: 12),
-  //         const Expanded(
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               Text(
-  //                 'Order Details',
-  //                 style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 25,
-  //                   fontWeight: FontWeight.w700,
-  //                 ),
-  //               ),
-  //               SizedBox(height: 4),
-  //               Text(
-  //                 '#SH1023',
-  //                 style: TextStyle(color: Colors.white, fontSize: 15),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         IconButton(
-  //           onPressed: () {},
-  //           icon: const Icon(Icons.more_vert, color: Colors.white, size: 28),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   // Order status summary
-  Widget _buildOrderHeader() {
+  Widget _buildOrderHeader(ThemeData theme) {
     return _card(
-      color: const Color(0xFFF3FAF7),
+      color: theme.cardColor,
       child: Row(
         children: [
           _iconCircle(Icons.inventory_2_outlined, size: 76, iconSize: 38),
@@ -144,7 +88,9 @@ class OrderDetailsScreen extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: lightGreen,
+                    color: theme.brightness == Brightness.dark
+                        ? Colors.black.withValues(alpha: 0.1)
+                        : Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Row(
@@ -154,7 +100,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       Text(
                         (order.status ?? 'pending').toUpperCase(),
                         style: TextStyle(
-                          color: primaryGreen,
+                          color: theme.primaryColor,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -166,7 +112,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 Text(
                   'Order #${order.id?.substring(0, 5)}',
                   style: TextStyle(
-                    color: textColor,
+                    color: theme.primaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -174,7 +120,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   '${order.cart!.length} items',
-                  style: TextStyle(color: secondaryText, fontSize: 14),
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
                 ),
               ],
             ),
@@ -183,7 +129,7 @@ class OrderDetailsScreen extends StatelessWidget {
           Text(
             '\$${order.subTotal!.toStringAsFixed(2)}',
             style: TextStyle(
-              color: primaryGreen,
+              color: theme.primaryColor,
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
@@ -194,7 +140,7 @@ class OrderDetailsScreen extends StatelessWidget {
   }
 
   // Order progress timeline
-  Widget _buildOrderTimeline() {
+  Widget _buildOrderTimeline(ThemeData theme) {
     final status = (order.status ?? 'pending').toLowerCase().trim();
     final isDelivered = status == 'delivered';
     final isShipped = status == 'shipped' || isDelivered;
@@ -221,6 +167,7 @@ class OrderDetailsScreen extends StatelessWidget {
     ];
 
     return _card(
+      color: theme.cardColor,
       child: Column(
         children: [
           Row(
@@ -304,34 +251,15 @@ class OrderDetailsScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: step.active
-                              ? primaryGreen
+                              ? theme.primaryColor
                               : step.completed
-                              ? textColor
-                              : secondaryText,
+                              ? theme.primaryColor
+                              : theme.colorScheme.onSurface,
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Text(
-                      //   step.date,
-                      //   textAlign: TextAlign.center,
-                      //   style: const TextStyle(
-                      //     color: secondaryText,
-                      //     fontSize: 10,
-                      //   ),
-                      // ),
-                      // if (step.time.isNotEmpty) ...[
-                      //   const SizedBox(height: 4),
-                      //   Text(
-                      //     step.time,
-                      //     textAlign: TextAlign.center,
-                      //     style: const TextStyle(
-                      //       color: secondaryText,
-                      //       fontSize: 10,
-                      //     ),
-                      //   ),
-                      // ],
                     ],
                   ),
                 ),
@@ -344,8 +272,9 @@ class OrderDetailsScreen extends StatelessWidget {
   }
 
   // Shipping information
-  Widget _buildShippingInformation() {
+  Widget _buildShippingInformation(ThemeData theme) {
     return _card(
+      color: theme.cardColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -365,7 +294,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     Text(
                       'Shipping Information',
                       style: TextStyle(
-                        color: textColor,
+                        color: theme.primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -374,13 +303,15 @@ class OrderDetailsScreen extends StatelessWidget {
                     Text(
                       order.fullName ?? 'No Name',
                       style: TextStyle(
-                        color: Color(0xFF39485B),
+                        color: Colors.grey,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     SizedBox(height: 12),
                     _InfoRow(
+                      textColor: Colors.grey,
+                      iconColor: theme.primaryColor,
                       icon: Icons.location_on,
                       text: order.address ?? 'No Address',
                     ),
@@ -390,33 +321,15 @@ class OrderDetailsScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          // Align(
-          //   alignment: Alignment.centerRight,
-          //   child: OutlinedButton.icon(
-          //     onPressed: () {},
-          //     icon: const Icon(Icons.location_on_outlined),
-          //     label: const Text('View Address'),
-          //     style: OutlinedButton.styleFrom(
-          //       foregroundColor: primaryGreen,
-          //       side: const BorderSide(color: primaryGreen),
-          //       padding: const EdgeInsets.symmetric(
-          //         horizontal: 16,
-          //         vertical: 12,
-          //       ),
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(28),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 
   // Products
-  Widget _buildOrderItems() {
+  Widget _buildOrderItems(ThemeData theme) {
     return _card(
+      color: theme.cardColor,
       child: Column(
         children: [
           Row(
@@ -425,7 +338,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 child: Text(
                   'Items (${order.cart?.length ?? 0})',
                   style: TextStyle(
-                    color: textColor,
+                    color: theme.primaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -461,7 +374,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     width: 100,
                     height: 112,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF0F1F0),
+                      color: theme.cardColor,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: CustomCachedImageNetwork(
@@ -478,7 +391,6 @@ class OrderDetailsScreen extends StatelessWidget {
                         Text(
                           item.name!,
                           style: TextStyle(
-                            color: textColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
@@ -486,13 +398,13 @@ class OrderDetailsScreen extends StatelessWidget {
                         SizedBox(height: 10),
                         Text(
                           'Qty: ${item.quantity}',
-                          style: TextStyle(color: secondaryText, fontSize: 13),
+                          style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                         SizedBox(height: 14),
                         Text(
                           '\$${item.price}',
                           style: TextStyle(
-                            color: primaryGreen,
+                            color: theme.primaryColor,
                             fontSize: 21,
                             fontWeight: FontWeight.w800,
                           ),
@@ -518,26 +430,24 @@ class OrderDetailsScreen extends StatelessWidget {
   }
 
   // Price breakdown
-  Widget _buildOrderSummary() {
+  Widget _buildOrderSummary(ThemeData theme) {
     return _card(
+      color: theme.cardColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Order Summary',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 20),
           _priceRow(
             'Subtotal (${order.cart?.length ?? 0} item)',
             '\$${order.subTotal?.toStringAsFixed(2)}',
+            color: theme.colorScheme.onSurface,
           ),
           const SizedBox(height: 14),
-          _priceRow('Shipping Fee', '\$0'),
+          _priceRow('Shipping Fee', '\$0', color: theme.colorScheme.onSurface),
           const SizedBox(height: 18),
           const Divider(color: Color(0xFFEBF0F3)),
           const SizedBox(height: 8),
@@ -545,58 +455,12 @@ class OrderDetailsScreen extends StatelessWidget {
             'Total',
             '\$${order.subTotal?.toStringAsFixed(2)}',
             bold: true,
+            color: theme.colorScheme.onSurface,
           ),
         ],
       ),
     );
   }
-
-  // Main action
-  // Widget _buildTrackOrderButton() {
-  //   return SizedBox(
-  //     width: double.infinity,
-  //     height: 58,
-  //     child: ElevatedButton.icon(
-  //       onPressed: () {},
-  //       icon: const Icon(Icons.inventory_2_outlined, size: 25),
-  //       label: const Text(
-  //         'Track Order',
-  //         style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-  //       ),
-  //       style: ElevatedButton.styleFrom(
-  //         backgroundColor: primaryGreen,
-  //         foregroundColor: Colors.white,
-  //         elevation: 0,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(20),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // // Support action
-  // Widget _buildContactSupportButton() {
-  //   return SizedBox(
-  //     width: double.infinity,
-  //     height: 54,
-  //     child: OutlinedButton.icon(
-  //       onPressed: () {},
-  //       icon: const Icon(Icons.headset_mic_outlined),
-  //       label: const Text(
-  //         'Contact Support',
-  //         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-  //       ),
-  //       style: OutlinedButton.styleFrom(
-  //         foregroundColor: primaryGreen,
-  //         side: const BorderSide(color: primaryGreen, width: 1.2),
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(20),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   // Reusable card
   Widget _card({required Widget child, Color color = Colors.white}) {
@@ -625,14 +489,19 @@ class OrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _priceRow(String label, String amount, {bool bold = false}) {
+  Widget _priceRow(
+    String label,
+    String amount, {
+    bool bold = false,
+    required Color color,
+  }) {
     return Row(
       children: [
         Expanded(
           child: Text(
             label,
             style: TextStyle(
-              color: bold ? primaryGreen : secondaryText,
+              color: color,
               fontSize: bold ? 17 : 14,
               fontWeight: bold ? FontWeight.w700 : FontWeight.w400,
             ),
@@ -641,7 +510,7 @@ class OrderDetailsScreen extends StatelessWidget {
         Text(
           amount,
           style: TextStyle(
-            color: bold ? primaryGreen : textColor,
+            color: bold ? color : Colors.grey,
             fontSize: bold ? 23 : 15,
             fontWeight: bold ? FontWeight.w800 : FontWeight.w500,
           ),
@@ -668,24 +537,26 @@ class _OrderStep {
 class _InfoRow extends StatelessWidget {
   final IconData icon;
   final String text;
-
-  const _InfoRow({required this.icon, required this.text});
+  final Color textColor;
+  final Color iconColor;
+  const _InfoRow({
+    required this.icon,
+    required this.text,
+    required this.textColor,
+    required this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 19, color: OrderDetailsScreen.primaryGreen),
+        Icon(icon, size: 19, color: iconColor),
         const SizedBox(width: 10),
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              color: OrderDetailsScreen.secondaryText,
-              fontSize: 14,
-              height: 1.5,
-            ),
+            style: TextStyle(color: textColor, fontSize: 14, height: 1.5),
           ),
         ),
       ],

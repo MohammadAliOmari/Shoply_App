@@ -6,6 +6,7 @@ class _FavouriteGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FavoriteCubit>();
+    final theme = Theme.of(context);
     return GridView.builder(
       itemCount: cubit.favoriteList.length,
       padding: EdgeInsets.symmetric(horizontal: 12),
@@ -20,15 +21,15 @@ class _FavouriteGrid extends StatelessWidget {
         return Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: theme.cardColor),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(color: Colors.grey.shade100),
+                decoration: BoxDecoration(color: theme.cardColor),
                 child: Stack(
                   fit: StackFit.passthrough,
                   children: [
@@ -95,11 +96,7 @@ class _FavouriteGrid extends StatelessWidget {
                 child: CustomButton(
                   radius: 12,
                   height: 52,
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  fontSize: 17,
                   buttonText: 'Add to Cart',
                   onPressed: () {
                     cubit.addToCart(

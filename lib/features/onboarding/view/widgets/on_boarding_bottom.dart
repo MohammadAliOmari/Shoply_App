@@ -5,6 +5,7 @@ class _OnBoardingBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<OnBoardingCubit, OnBoardingState>(
       buildWhen: (previous, current) => current is ChangePageIndexState,
       builder: (context, state) {
@@ -23,17 +24,17 @@ class _OnBoardingBottom extends StatelessWidget {
                   dotWidth: 16.0,
                   dotHeight: 16.0,
                   strokeWidth: 1.5,
-                  dotColor: AppColors.primaryColor.withValues(alpha: 0.3),
-                  activeDotColor: AppColors.primaryColor,
+                  dotColor: theme.primaryColor.withValues(alpha: 0.3),
+                  activeDotColor: theme.primaryColor,
                 ),
                 onDotClicked: (index) {},
               ),
               const SizedBox(height: 24),
               CustomButton(
                 buttonText: cubit.currentIndex != 2 ? 'Next' : 'Get Started',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                  color: theme.colorScheme.surface,
                   fontWeight: FontWeight.w600,
                 ),
                 onPressed: () {

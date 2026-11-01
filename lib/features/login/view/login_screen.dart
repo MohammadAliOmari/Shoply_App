@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_dialog/pro_dialog.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/images/app_images.dart';
-import 'package:shoply_app/core/utils/theme/app_colors.dart';
 import 'package:shoply_app/core/utils/widgets/custom_button.dart';
 import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 import 'package:shoply_app/core/utils/widgets/custom_loading.dart';
@@ -16,6 +15,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: Scaffold(
@@ -37,14 +37,13 @@ class LoginScreen extends StatelessWidget {
                         description: state.errorMessage,
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.pop(context);
                         },
                       );
                     } else if (state is LoginSuccessState) {
                       Navigator.pop(context);
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        AppPages.homeScreen,
+                        AppPages.layoutScreen,
                         (route) => false,
                       );
                     }
@@ -58,7 +57,8 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             SizedBox(height: 50),
                             Image(
-                              image: AssetImage(AppImages.shoplySplashImage),
+                              image: AssetImage(AppImages.shoplyLogo),
+                              color: theme.primaryColor,
                               width: 250,
                               height: 200,
                             ),
@@ -67,7 +67,6 @@ class LoginScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 35,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.black,
                               ),
                             ),
                             Text(
@@ -80,6 +79,12 @@ class LoginScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             CustomTextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Enter Your Email';
+                                }
+                                return null;
+                              },
                               controller: cubit.emailController,
                               hinText: 'Email',
                               prefixIcon: Icon(
@@ -89,6 +94,12 @@ class LoginScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 5),
                             CustomTextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Enter your Password';
+                                }
+                                return null;
+                              },
                               controller: cubit.passwordController,
                               hinText: 'Password',
                               prefixIcon: Icon(
@@ -100,12 +111,20 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(height: 10),
                             Align(
                               alignment: AlignmentGeometry.centerRight,
-                              child: Text(
-                                'ForgotPassword?',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.primaryColor,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppPages.forgotPasswordScreen,
+                                  );
+                                },
+                                child: Text(
+                                  'ForgotPassword?',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    color: theme.primaryColor,
+                                  ),
                                 ),
                               ),
                             ),
@@ -117,7 +136,7 @@ class LoginScreen extends StatelessWidget {
                               },
                               style: TextStyle(
                                 fontSize: 25,
-                                color: AppColors.onPrimary,
+                                color: theme.colorScheme.surface,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -145,7 +164,7 @@ class LoginScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w800,
-                                      color: AppColors.primaryColor,
+                                      color: theme.primaryColor,
                                     ),
                                   ),
                                 ),

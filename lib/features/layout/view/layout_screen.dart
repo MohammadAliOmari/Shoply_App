@@ -5,7 +5,6 @@ import 'package:shoply_app/core/local/local_storge_user.dart';
 import 'package:shoply_app/core/routes/app_pages.dart';
 import 'package:shoply_app/core/utils/images/app_images.dart';
 import 'package:shoply_app/core/utils/theme/app_colors.dart';
-import 'package:shoply_app/core/utils/widgets/custom_app_bar.dart';
 import 'package:shoply_app/core/utils/widgets/custom_cashed_image.dart';
 import 'package:shoply_app/core/utils/widgets/custom_dialog.dart';
 import 'package:shoply_app/core/utils/widgets/custom_list_tile.dart';

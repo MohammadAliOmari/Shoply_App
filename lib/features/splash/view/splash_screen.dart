@@ -12,6 +12,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => SplashCubit()..goNextPage(),
       child: Scaffold(
@@ -42,9 +43,10 @@ class SplashScreen extends StatelessWidget {
           },
           child: Center(
             child: Image(
-              image: AssetImage(AppImages.shoplySplashImage),
+              image: AssetImage(AppImages.shoplyLogo),
               height: 350,
               width: 350,
+              color: theme.primaryColor,
             ),
           ),
         ),

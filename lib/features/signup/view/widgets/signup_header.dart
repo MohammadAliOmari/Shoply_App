@@ -5,6 +5,7 @@ class _SignupHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
         final cubit = context.read<SignUpCubit>();
@@ -48,7 +49,7 @@ class _SignupHeader extends StatelessWidget {
                     },
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundColor: AppColors.primaryColor,
+                      backgroundColor: theme.primaryColor,
                       child: Icon(
                         Icons.camera_alt,
                         size: 20,

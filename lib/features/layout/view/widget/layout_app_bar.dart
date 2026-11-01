@@ -6,7 +6,8 @@ class _LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return CustomAppBar(
+    final theme = Theme.of(context);
+    return _CustomLayoutAppBar(
       title: index == 0
           ? Wrap(
               children: [
@@ -15,7 +16,6 @@ class _LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                     fontStyle: FontStyle.normal,
                   ),
                 ),
@@ -24,7 +24,7 @@ class _LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primaryColor,
+                    color: theme.primaryColor,
                     fontStyle: FontStyle.normal,
                   ),
                 ),
@@ -35,11 +35,23 @@ class _LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
                 fontStyle: FontStyle.normal,
               ),
             ),
     );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+}
+
+class _CustomLayoutAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  const _CustomLayoutAppBar({this.title});
+  final Widget? title;
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(scrolledUnderElevation: 0, title: title, centerTitle: true);
   }
 
   @override
