@@ -130,7 +130,7 @@ class TermsConditionsScreen extends StatelessWidget {
                   Divider(color: theme.dividerColor, height: 1),
                   const SizedBox(height: 10),
                   Text(
-                    'Sample terms for UI preview.',
+                    'Terms & Conditions.',
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                   ),
                 ],

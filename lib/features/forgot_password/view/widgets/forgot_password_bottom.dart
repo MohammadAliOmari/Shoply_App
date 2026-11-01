@@ -27,6 +27,7 @@ class _ForgotPasswordBottom extends StatelessWidget {
         ),
         SizedBox(height: 35),
         CustomButton(
+          fontSize: 22,
           buttonText: 'Send Reset Link',
           onPressed: () {
             cubit.forgotPassword();

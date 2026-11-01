@@ -24,7 +24,7 @@ class _SignupHeader extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 70,
-                  backgroundColor: Colors.grey.shade300,
+                  backgroundColor: theme.cardColor,
                   child: cubit.profileImage == null
                       ? Icon(
                           Icons.person_outline_rounded,

@@ -5,6 +5,7 @@ class _ForgotPasswordHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         Container(
@@ -12,9 +13,9 @@ class _ForgotPasswordHeader extends StatelessWidget {
           width: 150,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.primaryColor.withValues(alpha: 0.15),
+            color: theme.primaryColor.withValues(alpha: 0.15),
           ),
-          child: Icon(Icons.lock, size: 70, color: AppColors.primaryColor),
+          child: Icon(Icons.lock, size: 70, color: theme.primaryColor),
         ),
         SizedBox(height: 20),
         Text(

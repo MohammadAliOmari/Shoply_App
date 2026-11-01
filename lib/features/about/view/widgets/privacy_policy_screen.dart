@@ -122,7 +122,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   Divider(color: theme.dividerColor, height: 1),
                   const SizedBox(height: 10),
                   Text(
-                    'Sample policy for UI preview.',
+                    'Privacy Policy.',
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                   ),
                 ],
